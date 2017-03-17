@@ -10,32 +10,37 @@ class RequestParser
     def xml
         @xml
     end
- 
-    def addVariablesToXML
-	xml_doc = @xml.clone
+
+
+    def prepare_full_ws
+	copy_xml = @xml.clone
+	@xml_list << add_variables_to_xml(copy_xml)
+    end
+
+    def add_variables_to_xml(xml_doc)
         xml_doc.traverse do |node|
             if node.children.count == 1 && node.name != "document"
-                insertVariableToNode(node)
+                insert_variable_to_node(node)
             end
         end
         xml_doc
     end
     
-    def insertVariableToNode(node)
+    def insert_variable_to_node(node)
         variable = node.name.gsub(/^\w*\W/, "")
         node.content = "${#{variable}}"
     end
     
-    def prepareMandatoryWS
+    def prepare_mandatory_ws
         copy_xml = @xml.clone
-        copy_xml = removeNonMandatoryNodes(copy_xml)
-        copy_xml = addVariablesToXML(copy_xml)
+        copy_xml = remove_non_mandatory_nodes(copy_xml)
+        copy_xml = add_variables_to_xml(copy_xml)
         @xml_list << copy_xml
     end
     
-    def removeNonMandatoryNodes(xml_doc)
+    def remove_non_mandatory_nodes(xml_doc)
         xml_doc.traverse do |node|
-            if  isAttributeOfWS(node) && !node.text.include?("MANDATORY")
+            if  is_attribute_of_ws(node) && !node.text.include?("MANDATORY")
                 node.remove
             end
         end
@@ -48,14 +53,7 @@ class RequestParser
         end
     end
     
-    def testMethod
-        # prepareFullWS
-        prepareMandatoryWS
-        
-        print_xml
-    end
-    
-    def isAttributeOfWS(node)
+    def is_attribute_of_ws(node)
         node.children.count == 1 && node.name != "document"
     end
 end
