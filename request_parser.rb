@@ -15,16 +15,15 @@ class RequestParser
   def prepare_full_ws
     copy_xml = @xml.clone
     @xml_list << add_variables_to_xml(copy_xml)
-      end
+  end
 
-
-      def add_variables_to_xml(xml_doc)
+  def add_variables_to_xml(xml_doc)
     xml_doc.traverse do |node|
       if is_attribute_of_ws(node)
         insert_variable_to_node(node)
       end
-          end
-          xml_doc
+    end
+    xml_doc
   end
     
   def insert_variable_to_node(node)

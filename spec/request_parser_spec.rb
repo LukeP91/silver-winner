@@ -34,7 +34,6 @@ describe RequestParser do
   end
 
   context '#prepare_mandatory_missing_ws' do
-  
     before(:each) do
       @parser = RequestParser.new('./spec/test_mandatory_ws.xml')
       @xml_doc = @parser.prepare_mandatory_missing_ws
