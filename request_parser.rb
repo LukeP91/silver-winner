@@ -19,7 +19,7 @@ class RequestParser
 
     def add_variables_to_xml(xml_doc)
         xml_doc.traverse do |node|
-            if node.children.count == 1 && node.name != "document"
+            if is_attribute_of_ws(node)
                 insert_variable_to_node(node)
             end
         end
