@@ -2,7 +2,7 @@ require_relative '../request_parser.rb'
 require 'pry'
 			
 describe RequestParser do
-	context 'basic request' do 
+	context '#prepare_full_ws' do 
 		before(:each) do
 			@parser = RequestParser.new('./spec/test_full_ws.xml')
 			@xml_doc = @parser.prepare_full_ws                                     	
@@ -18,7 +18,7 @@ describe RequestParser do
 		end
 	end
 
-	context 'mandatoryWS' do
+	context '#prepare_mandatory_ws' do
 		before(:each) do
 			@parser = RequestParser.new('./spec/test_mandatory_ws.xml')
 			@xml_doc = @parser.prepare_mandatory_ws
@@ -30,6 +30,18 @@ describe RequestParser do
 	
 		it 'inserts proper variables ' do
 			expect(@xml_doc.first.xpath('//test1').first.content).to eq('${test1}')
+		end
+	end
+
+	context '#prepare_mandatory_missing_ws' do
+	
+		before(:each) do
+			@parser = RequestParser.new('./spec/test_mandatory_ws.xml')
+			@xml_doc = @parser.prepare_mandatory_missing_ws
+		end
+
+		it 'generates two xml documents' do
+			expect(@xml_doc.size).to eq('2')
 		end
 	end
 end
