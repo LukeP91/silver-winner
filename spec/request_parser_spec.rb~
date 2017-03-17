@@ -1,0 +1,9 @@
+require_relative '../request_parser.rb'
+
+describe RequestParser do
+	it 'inserts proper variables' do
+		parser = RequestParser.new('./spec/test.xml')
+		parser.addVariablesToXML(parser.xml)
+	end
+end
+
