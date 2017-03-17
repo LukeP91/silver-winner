@@ -1,6 +1,6 @@
 <document>	
-	<node1>
-		<test1>MANDATORY</test1>
-	</node1>
-	<test2>MANDATORY</test2>
+  <node1>
+    <test1>MANDATORY</test1>
+  </node1>
+  <test2>MANDATORY</test2>
 </document>
